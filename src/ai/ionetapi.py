@@ -23,7 +23,6 @@ class IONetAPI:
                                    headers=self.headers) as response:
                 return await response.json()
             
-
     async def create_chat_completion(self, model: str, message: str) -> dict:
         """
         Creates a model response for the given chat conversation.
@@ -34,7 +33,12 @@ class IONetAPI:
             "messages": [
                 {
                     "role": "system",
-                    "content": "You are a helpful assistant."
+                    "content": """Отвечай, выделяя только код (если он есть в ответе), без использования **жирного**, *курсива* и других Markdown-разметок.  
+Если в ответе есть команда, переменная, JSON, YAML или другой код — оборачивай его в ```, но не добавляй лишних символов форматирования.  
+
+Пример правильного ответа:  
+```python  
+print("Hello, World!")"""
                 },
                 {
                     "role": "user",
